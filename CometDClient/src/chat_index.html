@@ -1,0 +1,70 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body style="direction:rtl;">
+<!--<script type="text/javascript" src="../scripts/jquery/jquery-1.4.3.js"></script>-->
+<script type="text/javascript" src="../scripts/jquery/jquery-1.2.3.js"></script>
+<link rel="stylesheet" type="text/css" href="../scripts/chat.css">
+<script type="text/javascript" src="../scripts/jquery/json2.js"></script>
+<script type="text/javascript" src="../scripts/org/cometd-namespace.js"></script>
+<script type="text/javascript" src="../scripts/org/cometd-json.js"></script>
+<script type="text/javascript" src="../scripts/org/TransportRegistry.js"></script>
+<script type="text/javascript" src="../scripts/org/WebSocketTransport.js"></script>
+<script type="text/javascript" src="../scripts/org/Transport.js"></script>
+<script type="text/javascript" src="../scripts/org/LongPollingTransport.js"></script>
+<script type="text/javascript" src="../scripts/org/RequestTransport.js"></script>
+<script type="text/javascript" src="../scripts/org/CallbackPollingTransport.js"></script>
+<script type="text/javascript" src="../scripts/org/Utils.js"></script>
+<script type="text/javascript" src="../scripts/org/Cometd.js"></script>
+<script type="text/javascript" src="../scripts/org/cometd/AckExtension.js"></script>
+<script type="text/javascript" src="../scripts/org/cometd/ReloadExtension.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery.kookie.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery.cometd.js"></script>
+<script type="text/javascript" src="../scripts/jquery/jquery.cometd-reload.js"></script>
+<script type="text/javascript" src="../scripts/labels.js"></script>	
+<script type="text/javascript" src="../scripts/chat.js"></script>
+<script type="text/javascript" src="../scripts/jquery.alerts.js"></script>
+<link rel="stylesheet" type="text/css" href="../scripts/jquery.alerts.css">
+
+ 
+    <script type="text/javascript">
+        var config = {
+            contextPath: "localhost:80",
+            username: "Hello World",
+            verify: "ac5c3404f57a5061f36a694eb5d56214"
+        };
+    </script>
+
+<div id="chatroom">
+    <div id="chatOverlay"></div>
+    <div id="chat"></div>
+    <!--
+    <div id="advanced" class="advanced">
+    	<div id="advancedInner" class="advancedInner">
+        
+        	<div class="privateDiv"><button id="private" class="private"></button></div>
+        	<div class="privateSpanDiv"><input id="privateSpan" class="private" type="text" disabled value="" /></div>
+        	<div class="closeAdvancedDiv"><button id="closeAdvanced" class="closeAdvanced"></button></div>
+        	<div id="toDiv" class="toDiv"><select id="to" class="to" multiple="true" ></select></div>
+
+        </div>
+    </div>
+	-->
+    <div id="input" class="input">
+        	
+        	<div class="first">
+            <input id="phrase" class="phrase" type="text" disabled/>
+            </div>
+            
+            <div class="second">
+            	<button id="sendButton" class="button" disabled></button>
+            </div>
+			
+			<div class="third">
+				<button id="smilyButton" class="button" disabled></button>
+			</div>
+    </div>
+</div>
+</body>
+</html>
