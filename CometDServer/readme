@@ -19,3 +19,4 @@ Running the server
 
 Running the Test client
 Open in any browser chat_index.html from CometDClient project
+Write in browser: "file:///   ...    /CometDClient/src/chat_index.html"
