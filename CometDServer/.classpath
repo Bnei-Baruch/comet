@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/JVM Contents (MacOS X Default)"/>
+	<classpathentry kind="lib" path="lib/bayeux-api-2.1.0.beta2.jar"/>
+	<classpathentry kind="lib" path="lib/cometd-java-client-2.1.0.beta2.jar"/>
+	<classpathentry kind="lib" path="lib/cometd-java-common-2.1.0.beta2.jar"/>
+	<classpathentry kind="lib" path="lib/cometd-java-server-2.1.0.beta2.jar"/>
+	<classpathentry kind="lib" path="lib/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-client-7.2.2.v20101205.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-continuation-7.2.2.v20101205.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-http-7.2.2.v20101205.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-io-7.2.2.v20101205.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-security-7.2.2.v20101205.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-server-7.2.2.v20101205.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-servlet-7.2.2.v20101205.jar"/>
+	<classpathentry kind="lib" path="lib/jetty-util-7.2.2.v20101205.jar"/>
+	<classpathentry kind="lib" path="lib/junit-4.8.2.jar"/>
+	<classpathentry kind="lib" path="lib/activation.jar"/>
+	<classpathentry kind="lib" path="lib/mail.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
