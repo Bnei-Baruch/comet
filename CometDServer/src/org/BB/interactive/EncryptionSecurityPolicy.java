@@ -52,8 +52,6 @@ public class EncryptionSecurityPolicy implements SecurityPolicy
 	
 	public static boolean authenticateMessage(Message message, ServerSession session)
 	{
-		//System.out.println("ENTERING AUTH!");
-
 		if (session != null && session.isLocalSession())
 		{
 			System.err.println("Local session: return true " + session.getId() + " " 
@@ -61,17 +59,13 @@ public class EncryptionSecurityPolicy implements SecurityPolicy
 			return true;
 		}
 		
-		if (message == null /*|| message.getExt() == null*/)
-		{
+		if (message == null)
 			return false;
-		}
 		
 		// Authenticate only on relevant channels!
-		if (!message.getChannel().startsWith("/auth"))
-		{
-			
+		if (!message.getChannel().startsWith("/auth") &&
+			!message.getChannel().startsWith("/service/auth"))
 			return  true;
-		}
 		
 		System.err.println(message.getJSON());
 		
