@@ -21,6 +21,8 @@ Running the Test client
 Open in any browser chat_index.html from CometDClient project
 Write in browser: "file:///   ...    /CometDClient/src/chat_index.html"
 
+This project uses open source client UI: https://github.com/dexterpu/jquery.ui.chatbox
+
 How to Contribute/Develope
 --------------------------
 
