@@ -1,7 +1,7 @@
 (function($)
 {
 	// Push application
-    function App(
+    $.App = function(
     	contextPath, // CometD server path or ip
     	applicationId, // String identifying the application id, base channel
     	username, // For authenticated applications only, if null no authentication
@@ -32,7 +32,7 @@
 	
 		// Private member functions
 	
-		function _handshake()
+		function handshake()
 		{
 			var cometdURL = "http://" + _contextPath + "/cometd";
 			
@@ -44,11 +44,11 @@
             });
 
             $.cometd.handshake(_auth);
-		};
+		}
 
         this.connect = function()
         {
-        	cometd.addListener('/meta/connect', function(message)
+        	$.cometd.addListener('/meta/connect', function(message)
 			{
 			    if (cometd.isDisconnected())
 			    {
@@ -71,15 +71,15 @@
 		    	}
 			});
 			
-			cometd.addListener('/meta/disconnect', function(message)
+			$.cometd.addListener('/meta/disconnect', function(message)
 			{
 			    if (message.successful)
 			    {
 			        _connected = false;
 			    }
-			}
+			});
 		
-			_handshake();
+			handshake();
         };
         
         this.disconnect = function() {
