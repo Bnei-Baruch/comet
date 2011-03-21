@@ -9,6 +9,7 @@
     <script type="text/javascript" src="../scripts/jquery/jquery-ui-1.8.10.custom.min.js"></script>
     <link type="text/css" href="../scripts/chatbox/jquery.ui.chatbox.css" rel="stylesheet" />
     <script type="text/javascript" src="../scripts/chatbox/jquery.ui.chatbox.js"></script>
+    <script type="text/javascript" src="../scripts/chatbox/chatboxManager.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
           var box = null;
@@ -45,34 +46,82 @@
 	<script type="text/javascript" src="../scripts/jquery/jquery.kookie.js"></script>
 	<script type="text/javascript" src="../scripts/jquery/jquery.cometd.js"></script>
 	<script type="text/javascript" src="../scripts/jquery/jquery.cometd-reload.js"></script>
-
     <script type="text/javascript" src="../scripts/app.js"></script>
-    <script type="text/javascript">
     
-    	$(document).ready(function(){
+	<script type="text/javascript"> 
+      $(document).ready(function(){
 
-	    	var contextPath = "localhost:8080"; // CometD server path or ip
-	    	var applicationId ="1234"; // String identifying the application id, base channel
-	    	var username = "Hello World"; // For authenticated applications only, if null no authentication
-	    	var verify = "ac5c3404f57a5061f36a694eb5d56214"; // For authenticated applications only, if null no authentication
-	        var connectionEstablished = function() { alert("connectionEstablished"); }; // hook for event, may be null
-	        var connectionBroken = function() { alert("connectionBroken"); }; // hook for event, may be null
-	        var connectionClosed = function() { alert("connectionClosed"); }; // hook for event, may be null
+	  var a_channel = "/auth/demo";
+
+	  var contextPath = "localhost:8080"; // CometD server path or ip
+	  var applicationId ="1234"; // String identifying the application id, base channel
+	  var username = "Hello World"; // For authenticated applications only, if null no authentication
+      var verify = "ac5c3404f57a5061f36a694eb5d56214"; // For authenticated applications only, if null no authentication
+
+	  var connectionEstablished = function() { 
+	  		  app.subscribe(a_channel, receiveMessage); 
+	  }; // hook for event, may be null
+	  var connectionBroken = function() { alert("connectionBroken"); }; // hook for event, may be null
+	  var connectionClosed = function() { alert("connectionClosed"); }; // hook for event, may be null
 	    
-	    	var app = new $.App(
-	    		contextPath,
-	    		applicationId,
-	    		username,
-	    		verify,
-	    		connectionEstablished,
-	    		connectionBroken,
-	    		connectionClosed
-	    		);
+	  var app = new $.App(
+	   	contextPath,
+	   	applicationId,
+	   	username,
+	   	verify,
+	   	connectionEstablished,
+	   	connectionBroken,
+	   	connectionClosed
+	  );
 	    	
-	    	app.connect();
-    	});
+	  app.connect();
+ 
+      var counter = 0;
+      var idList = new Array();
+ 
+ 	  var sendMessage = function(from, msg) {
+ 	  	app.publish(a_channel, {"from":from, "msg":msg})
+ 	  }
 
-    </script>
+ 	  var receiveMessage = function(message) {
+ 	  	var from = message.data["from"];
+ 	  	var msg = message.data["msg"];
+ 	  	
+        for(var i = 0; i < idList.length; i ++) {
+          chatboxManager.addBox(idList[i]);
+          $("#" + idList[i]).chatbox("option", "boxManager").addMsg(from, msg);
+        }
+ 	  }
+ 
+      var broadcastMessageCallback = function(from, msg) {
+          for(var i = 0; i < idList.length; i ++) {
+              chatboxManager.addBox(idList[i]);
+              $("#" + idList[i]).chatbox("option", "boxManager").addMsg(from, msg);
+          }
+          alert("this is without push");
+      }
+ 
+      // chatboxManager is excerpt from the original project
+      // the code is not very clean, I just want to reuse it to manage multiple chatboxes
+      chatboxManager.init({messageSent : sendMessage,
+						   pushApp : app});
+ 
+      $("#link_add").click(function(event, ui) {
+          counter ++;
+          var id = "box" + counter;
+          idList.push(id);
+          chatboxManager.addBox(id, 
+                                  {dest:"dest" + counter, // not used in demo
+                                   title:"box" + counter,
+                                   first_name:"First" + counter,
+                                   last_name:"Last" + counter
+                                   //you can add your own options too
+                                  });
+          event.preventDefault();
+      });
+ 
+      });
+    </script> 
     
   </head>
   <body>
@@ -84,5 +133,6 @@
     <hr />
     <div id="log">
     </div>
+    <p><a id="link_add" href="#">Add Chatbox</a></p>
   </body>
 </html>

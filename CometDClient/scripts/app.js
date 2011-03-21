@@ -12,7 +12,6 @@
     	)
 	{
 		// Initialization
-		
 		var _self = this;
 		var _contextPath = contextPath;
 		var _applicationId = applicationId;
@@ -50,7 +49,7 @@
         {
         	$.cometd.addListener('/meta/connect', function(message)
 			{
-			    if (cometd.isDisconnected())
+			    if ($.cometd.isDisconnected())
 			    {
 			    	_connectionClosed();
 			        return;
@@ -95,6 +94,11 @@
         {
         	$.cometd.unsubscribe(_channelHandlers[channel], _auth);
         	delete  _channelHandlers[channel];
+        };
+        
+        this.publish = function(channel, msg)
+        {
+        	$.cometd.publish(channel, msg, _auth)
         };
 	};
 })(jQuery);
