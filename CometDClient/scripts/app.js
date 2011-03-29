@@ -85,6 +85,15 @@
         	$.cometd.disconnect();
         };
         
+        this.subscribeToServiceChannel(channel, receiveFunction)
+        {
+        	...
+        }
+        
+        this.publishToService = function(channel, message)
+        {
+        }
+        
         this.subscribe = function(channel, receiveFunction)
         {
         	_channelHandlers[channel] = $.cometd.subscribe(channel, receiveFunction, _auth);
