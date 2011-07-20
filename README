@@ -2,8 +2,8 @@ How to run CometDServer and Test client
 ---------------------------------------
 
 Prerequisites:
-1) You have to have Java 1.6
-2) Download "lib" directory from: https://github.com/Bnei-Baruch/chat.git
+1) You have to have Java 1.6 or above.
+2) Download "lib" directory from: https://github.com/Bnei-Baruch/comet.git
    (Note CDS.jar is actually all CometDServer source file in a jar file)
 3) Download the CometDClient project
    
@@ -12,42 +12,12 @@ Running the server
   "java -cp cometd-java-server-2.1.0.beta2.jar:bayeux-api-2.1.0.beta2.jar:cometd-java-client-2.1.0.beta2.jar:cometd-java-common-2.1.0.beta2.jar:javax.servlet.jar:jetty-client-7.2.2.v20101205.jar:jetty-continuation-7.2.2.v20101205.jar:jetty-http-7.2.2.v20101205.jar:jetty-io-7.2.2.v20101205.jar:jetty-security-7.2.2.v20101205.jar:jetty-server-7.2.2.v20101205.jar:jetty-servlet-7.2.2.v20101205.jar:jetty-util-7.2.2.v20101205.jar:junit-4.8.2.jar:CDS.jar:mysql-connector-java-5.1.14-bin.jar:mail.jar:activation.jar org.BB.interactive.CometDServerRunner 80"
 - If problems with permission in unix add "sudo" before the command.
 - If port 80 is already used, you can try running any other port, 
-  but in this case you have to change the port in chat_index.html
+  but in this case you have to change the port in test.html
   ...
   contextPath: "localhost:80"
   ...
+- The CDS.jar file is export of all source files in the CometDServer project.
 
 Running the Test client
 Open in any browser chat_index.html from CometDClient project
-Write in browser: "file:///   ...    /CometDClient/src/chat_index.html"
-
-This project uses open source client UI: https://github.com/dexterpu/jquery.ui.chatbox
-
-How to Contribute/Develope
---------------------------
-
-This project uses eclipse (http://www.eclipse.org/downloads/) and is written in Java.
-
-The project is based on CometD (http://cometdproject.dojotoolkit.org/)
-The CometD documentation is available at (http://cometd.org/documentation/2.x/cometd-java)
-The cometD javadocs are available at: http://download.cometd.org/bayeux-api-2.1.0-javadoc/
-
-Problems with GIT? try SmartGIT easy to use program, free for open source.
-
-Prerequisites:
-1) Connect to git connection string available at https://github.com/Bnei-Baruch/chat
-2) Download CometDServer and CometDClient projects.
-3) Create workspace and add those two projects.
-4) Edit the code . . .
-
-How to work together:
-1) Each code has to be reviews. (By directory owner, see OWNER file in each directory, if directory don't have an OWNER file it is inherited from parent directory)
-2) Each interface/large function has to have a test function.
-
-Contributing
-1) Fork it.
-2) Create a branch (git checkout -b my_patch)
-3) Commit your changes (git commit -am "Added Patch")
-4) Push to the branch (git push origin my_patch)
-5) Create an Issue with a link to your branch
-6) Enjoy a refreshing Reading of Rabash and wait
+Write in browser: "file:///   ...    /CometDClient/src/test.html"
