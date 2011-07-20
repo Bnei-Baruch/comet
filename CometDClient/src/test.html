@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+
+<head>
+    <title>CometD test</title>
+    <script type="text/javascript" src="scripts/cometd/cometd-namespace.js"></script>
+    <script type="text/javascript" src="scripts/cometd/cometd-json.js"></script>
+    <script type="text/javascript" src="scripts/cometd/Utils.js"></script>
+    <script type="text/javascript" src="scripts/cometd/Transport.js"></script>
+    <script type="text/javascript" src="scripts/cometd/TransportRegistry.js"></script>
+    <script type="text/javascript" src="scripts/cometd/RequestTransport.js"></script>
+    <script type="text/javascript" src="scripts/cometd/WebSocketTransport.js"></script>
+    <script type="text/javascript" src="scripts/cometd/LongPollingTransport.js"></script>
+    <script type="text/javascript" src="scripts/cometd/CallbackPollingTransport.js"></script>
+    <script type="text/javascript" src="scripts/cometd/cometd.js"></script>
+    <script type="text/javascript" src="scripts/cometd/AckExtension.js"></script>
+    <script type="text/javascript" src="scripts/cometd/ReloadExtension.js"></script>
+    <script type="text/javascript" src="scripts/jquery/jquery-1.6.2.js"></script>
+    <script type="text/javascript" src="scripts/jquery/json2.js"></script>
+    <script type="text/javascript" src="scripts/jquery/jquery.cookie.js"></script>
+    <script type="text/javascript" src="scripts/jquery/jquery.cometd.js"></script>
+    <script type="text/javascript" src="scripts/jquery/jquery.cometd-reload.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+    <script type="text/javascript">
+		(function($)
+		{
+		    // Push application
+		    function TestApp()
+		    {
+		      var _self = this;
+		      var channel = "/auth/1";
+		
+		      function connectionEsteblished()
+		      {
+		        app.subscribe(channel, function(message) {
+		        	alert(message);
+		        });
+		      };
+		            
+		      var app = new $.App(
+		        "localhost:8080", // CometD server path or ip
+		        "2", // "2" is test application // String identifying the application id, base channel
+		        "Hello World", // Encrypted username "Hello World". For authenticated applications only, if null no authentication
+		        "35b21318ea312a9115f0318dd182c955", // For authenticated applications only, if null no authentication
+		        connectionEsteblished, //connectionEstablished, // hook for event, may be null
+		        null, //connectionBroken, // hook for event, may be null
+		        null //connectionClosed // hook for event, may be null
+		      );
+		
+		      app.addListener('/meta/subscribe', function(message) {
+		        app.publish(channel, {"test":"subscribed success!"});
+		      });
+		
+		      app.connect();
+		    };
+		    
+		    var testApp = new TestApp();
+		
+		})(jQuery);
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
