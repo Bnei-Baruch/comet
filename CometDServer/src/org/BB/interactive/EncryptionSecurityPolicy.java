@@ -1,13 +1,9 @@
 package org.BB.interactive;
 
-import java.io.ByteArrayOutputStream;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -61,8 +57,9 @@ public class EncryptionSecurityPolicy implements SecurityPolicy
 	}
 	
 	public boolean authenticateMessage(Message message, ServerSession session)
-	{		
-		System.err.println(message.getJSON());
+	{	
+		if (message != null)
+			System.err.println(message.getJSON());
 		
 		if (session != null && session.isLocalSession())
 		{
