@@ -10,15 +10,24 @@ public class ApplicationPool {
 
 	Map<String, Application> appMap;
 
-	public ApplicationPool(String filename) throws IOException {
+	public ApplicationPool(String filename) {
 		appMap = new HashMap<String, Application>();
 
-		BufferedReader in = new BufferedReader(new FileReader(filename));
-		Application app = null;
-	    while ((app = Application.readFromBuffer(in))!=null) {
-	    	appMap.put(app.id, app);
-	    }
-	    in.close();
+		if (filename == null) {
+			System.err.println("No application pool configuration was loaded.");
+			return;
+		}
+		
+		try {
+			BufferedReader in = new BufferedReader(new FileReader(filename));
+			Application app = null;
+		    while ((app = Application.readFromBuffer(in))!=null) {
+		    	appMap.put(app.id, app);
+		    }
+		    in.close();
+		} catch(IOException e) {
+			System.err.println("Cound not parse applicaiton pool configuration file:" + e.getMessage());
+		}
 	}
 	
 	public int size() {

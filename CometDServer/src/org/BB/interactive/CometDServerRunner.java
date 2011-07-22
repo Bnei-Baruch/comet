@@ -58,6 +58,7 @@ public class CometDServerRunner {
         boolean qos = false;
         boolean stats = false;
         boolean reqs = false;
+        String configuration_file = null;
         int port = 8080;
 
         for (String arg : args)
@@ -66,8 +67,12 @@ public class CometDServerRunner {
             qos |= "--qos".equals(arg);
             stats |= "--stats".equals(arg);
             reqs |= "--reqs".equals(arg);
-            if (!arg.startsWith("--"))
+            if (arg.startsWith("--conf=")) {
+            	configuration_file = arg.split("=")[1];
+            }
+            if (!arg.startsWith("--")) {
                 port = Integer.parseInt(arg);
+            }
         }
 
         Server server = new Server();
@@ -147,22 +152,7 @@ public class CometDServerRunner {
         
         server.start();
 
-        Application arvut_system = new Application();
-        arvut_system.id = "1";
-        arvut_system.secretKey = "01234567890abcde01234567890abcde";
-        arvut_system.ivParam = "fedcba9876543210fedcba9876543210";
-
-        Application arvut_system_dev = new Application();
-        arvut_system_dev.id = "2";
-        arvut_system_dev.secretKey = "01234567890abcde01234567890abcde";
-        arvut_system_dev.ivParam = "fedcba9876543210fedcba9876543210";
-
-        Application test = new Application();
-        test.id = "1234";
-        test.secretKey = "01234567890abcde01234567890abcde";
-        test.ivParam = "fedcba9876543210fedcba9876543210";
-
-        ApplicationPool ap = new ApplicationPool(new Application[] { arvut_system, arvut_system_dev, test });
+        ApplicationPool ap = new ApplicationPool(configuration_file);
         
         bayeux = cometServlet.getBayeux();
         //PrivateChatService pcs = new PrivateChatService(bayeux);
