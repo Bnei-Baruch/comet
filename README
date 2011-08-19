@@ -9,7 +9,7 @@ Prerequisites:
    
 Running the server
 - Run the following java command from "lib" directory (Note: In windows replace ":" with ";"!!!):
-  "java -cp cometd-java-server-2.1.0.beta2.jar:bayeux-api-2.1.0.beta2.jar:cometd-java-client-2.1.0.beta2.jar:cometd-java-common-2.1.0.beta2.jar:javax.servlet.jar:jetty-client-7.2.2.v20101205.jar:jetty-continuation-7.2.2.v20101205.jar:jetty-http-7.2.2.v20101205.jar:jetty-io-7.2.2.v20101205.jar:jetty-security-7.2.2.v20101205.jar:jetty-server-7.2.2.v20101205.jar:jetty-servlet-7.2.2.v20101205.jar:jetty-util-7.2.2.v20101205.jar:junit-4.8.2.jar:CDS.jar:mysql-connector-java-5.1.14-bin.jar:mail.jar:activation.jar org.BB.interactive.CometDServerRunner 80"
+  "java -cp cometd-java-server-2.1.0.beta2.jar:bayeux-api-2.1.0.beta2.jar:cometd-java-client-2.1.0.beta2.jar:cometd-java-common-2.1.0.beta2.jar:javax.servlet.jar:jetty-client-7.2.2.v20101205.jar:jetty-continuation-7.2.2.v20101205.jar:jetty-http-7.2.2.v20101205.jar:jetty-io-7.2.2.v20101205.jar:jetty-security-7.2.2.v20101205.jar:jetty-server-7.2.2.v20101205.jar:jetty-servlet-7.2.2.v20101205.jar:jetty-util-7.2.2.v20101205.jar:junit-4.8.2.jar:CDS.jar:mysql-connector-java-5.1.14-bin.jar:mail.jar:activation.jar org.BB.interactive.CometDServerRunner 80 --conf=<configuration file>"
 - If problems with permission in unix add "sudo" before the command.
 - If port 80 is already used, you can try running any other port, 
   but in this case you have to change the port in test.html
@@ -17,6 +17,15 @@ Running the server
   contextPath: "localhost:80"
   ...
 - The CDS.jar file is export of all source files in the CometDServer project.
+- configuration file should have the following content (example):
+id = 1
+secretKey = 01234567890abcde01234567890abcde
+ivParam = fedcba9876543210fedcba9876543210
+
+id = 2
+secretKey = 01234567890abcde01234567890abcde
+ivParam = fedcba9876543210fedcba9876543210
+...
 
 Running the Test client
 Open in any browser chat_index.html from CometDClient project
