@@ -58,8 +58,8 @@ public class EncryptionSecurityPolicy implements SecurityPolicy
 	
 	public boolean authenticateMessage(Message message, ServerSession session)
 	{	
-		if (message != null)
-			System.err.println(message.getJSON());
+		//if (message != null)
+		//	System.err.println(message.getJSON());
 		
 		if (session != null && session.isLocalSession())
 		{
@@ -84,7 +84,7 @@ public class EncryptionSecurityPolicy implements SecurityPolicy
 			!message.getChannel().startsWith("/service/auth"))
 			return  true;
 
-		System.err.println(message.getJSON());
+		//System.err.println(message.getJSON());
 		
 		//System.err.println(message.getClientId());
 		//if (message.)
@@ -108,15 +108,15 @@ public class EncryptionSecurityPolicy implements SecurityPolicy
 		String username = (String)usernameObj;
 		String verify = (String)verifyObj;
 		
-		System.err.print(username + "-");
-		System.err.println(verify);
+		//System.err.print(username + "-");
+		//System.err.println(verify);
 		
 		String verifyDecryptHex = decrypt(app.secretKey, app.ivParam, verify);
 		String verifyDecrypt = null;
 		try {
 			verifyDecrypt = new String(hexToBytes(verifyDecryptHex), "UTF-8");
 
-			System.err.println("verifyDecrypt:"+verifyDecrypt);
+			//System.err.println("verifyDecrypt:"+verifyDecrypt);
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -199,7 +199,7 @@ public class EncryptionSecurityPolicy implements SecurityPolicy
 			byte[] outTextAsBytes = cipher.doFinal(bytes);
 			String outText = bytesToHex(outTextAsBytes);
 		
-			System.out.println(outText);
+			//System.out.println(outText);
 		
 			return outText;
 		
