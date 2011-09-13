@@ -147,7 +147,8 @@ public class CometDServerRunner {
         // it will be the client to dispose idle connections.
         cometServletHolder.setInitParameter("maxInterval", String.valueOf(20000));
         // Explicitly set the timeout value
-        cometServletHolder.setInitParameter("timeout", String.valueOf(10000));
+        long timeout = 3*60000;
+        cometServletHolder.setInitParameter("timeout", String.valueOf(timeout));
         context.addServlet(cometServletHolder, cometServletPath + "/*");
         
         server.start();
@@ -160,8 +161,9 @@ public class CometDServerRunner {
         bayeux.setSecurityPolicy(new MultipleSecurityPolicy(new SecurityPolicy[] {
         		new EncryptionSecurityPolicy(ap), 
         		/*new BlackListSecurityPolicy(blacklist, null/*pcs* /)*/}));
-        new StatisticsService(bayeux);
+        //new StatisticsService(bayeux);
         //new SendEmailService(bayeux, blacklist);
+        new SimpleUserStatistics(bayeux);
     }
     
     public BayeuxServer getBayeuxServer()
