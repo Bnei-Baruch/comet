@@ -38,7 +38,7 @@ public class SimpleUserStatistics extends AbstractService {
         		messages.put(message.getChannel(), 1);
         	}
 
-   		    //System.err.println(message.getJSON());
+   		    System.err.println(message.getJSON());
 
         	Object pageObj = message.get("page");
     		if (pageObj instanceof String) {
