@@ -54,7 +54,14 @@ public class SimpleUserStatistics extends AbstractService {
 
         		if (users.containsKey(remote) && 
         				users.get(remote).compareTo(page) != 0) {
-    				pages.get(users.get(remote)).remove(remote);
+        			
+                	Set<ServerSession> pages_sessions = pages.get(users.get(remote));
+                	pages_sessions.remove(remote);
+            		if (pages_sessions.size() == 0) {
+            			pages.remove(users.get(remote));
+            		}
+
+            		
      			}
 
     			users.put(remote, page);
@@ -76,7 +83,7 @@ public class SimpleUserStatistics extends AbstractService {
             for(Entry<String, Integer> e : messages.entrySet()) {
             	System.err.print(e.getKey() + ":" + e.getValue() + " ");
             }
-            System.err.println(" in timespan:" + String.valueOf(System.currentTimeMillis() - time));
+            System.err.println("in timespan:" + String.valueOf(System.currentTimeMillis() - time));
         	System.err.println("Users:" + connected);
         	for(Entry<String, Set<ServerSession>> e : pages.entrySet()) {
         		System.err.println(e.getKey() + ":" + e.getValue().size());

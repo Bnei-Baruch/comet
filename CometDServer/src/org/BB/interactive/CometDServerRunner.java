@@ -98,6 +98,7 @@ public class CometDServerRunner {
         // Make sure the server timeout on a TCP connection is large
         connector.setMaxIdleTime(240000);
         connector.setPort(port);
+        
         server.addConnector(connector);
 
         QueuedThreadPool threadPool = new QueuedThreadPool();
@@ -145,10 +146,9 @@ public class CometDServerRunner {
         // This value must be several times larger than the client value
         // (e.g. 60 s on server vs 5 s on client) so that it's guaranteed that
         // it will be the client to dispose idle connections.
-        cometServletHolder.setInitParameter("maxInterval", String.valueOf(20000));
+        cometServletHolder.setInitParameter("maxInterval", String.valueOf(60000));
         // Explicitly set the timeout value
-        long timeout = 3*60000;
-        cometServletHolder.setInitParameter("timeout", String.valueOf(timeout));
+        cometServletHolder.setInitParameter("timeout", String.valueOf(30000));
         context.addServlet(cometServletHolder, cometServletPath + "/*");
         
         server.start();
