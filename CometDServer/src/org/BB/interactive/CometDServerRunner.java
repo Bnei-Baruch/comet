@@ -146,9 +146,13 @@ public class CometDServerRunner {
         // This value must be several times larger than the client value
         // (e.g. 60 s on server vs 5 s on client) so that it's guaranteed that
         // it will be the client to dispose idle connections.
-        cometServletHolder.setInitParameter("maxInterval", String.valueOf(60000));
+        cometServletHolder.setInitParameter("maxInterval", String.valueOf(60001));
         // Explicitly set the timeout value
-        cometServletHolder.setInitParameter("timeout", String.valueOf(30000));
+        cometServletHolder.setInitParameter("timeout", String.valueOf(3*60*1001));
+        cometServletHolder.setInitParameter("multiSessionInterval", "30001");
+        //cometServletHolder.setInitParameter("maxSessionsPerBrowser", "-1");
+        cometServletHolder.setInitParameter("allowMultiSessionsNoBrowser", "true");
+        
         context.addServlet(cometServletHolder, cometServletPath + "/*");
         
         server.start();
