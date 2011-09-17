@@ -5,11 +5,13 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.cometd.bayeux.Message;
 import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.ServerSession;
 import org.cometd.server.AbstractService;
+import org.eclipse.jetty.util.ConcurrentHashSet;
 
 public class SimpleUserStatistics extends AbstractService {
 
@@ -25,8 +27,8 @@ public class SimpleUserStatistics extends AbstractService {
         addService("/**", "all");
         time = System.currentTimeMillis();
         messages = new HashMap<String, Integer>();
-        pages = new HashMap<String, Set<ServerSession>>();
-        users = new HashMap<ServerSession, String>();
+        pages = new ConcurrentHashMap<String, Set<ServerSession>>();
+        users = new ConcurrentHashMap<ServerSession, String>();
 	}
     
     public void all(ServerSession remote, Message message) {
@@ -47,7 +49,7 @@ public class SimpleUserStatistics extends AbstractService {
     			if (pages.containsKey(page)) {
     				sessions = pages.get(page);
     			} else {
-    				sessions = new HashSet<ServerSession>();			
+    				sessions = new ConcurrentHashSet<ServerSession>();			
     			}
     			sessions.add(remote);
     			pages.put(page, sessions);
