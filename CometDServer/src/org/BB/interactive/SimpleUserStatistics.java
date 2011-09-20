@@ -81,12 +81,19 @@ public class SimpleUserStatistics extends AbstractService {
             		connected++;
             	}
             }
+            
+            // Print statistics header
             System.err.println();
             for(Entry<String, Integer> e : messages.entrySet()) {
             	System.err.print(e.getKey() + ":" + e.getValue() + " ");
             }
+            // print timestamp
             System.err.println("in timespan:" + String.valueOf(System.currentTimeMillis() - time));
+            
+            // Print number of users.
         	System.err.println("Users:" + connected);
+        	
+        	// Print users locations.
         	for(Entry<String, Set<ServerSession>> e : pages.entrySet()) {
         		System.err.println(e.getKey() + ":" + e.getValue().size());
         	}
