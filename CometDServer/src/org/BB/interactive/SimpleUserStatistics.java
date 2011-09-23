@@ -46,9 +46,8 @@ public class SimpleUserStatistics extends AbstractService {
     		if (pageObj instanceof String) {
     			String page = (String)pageObj;
     			Set<ServerSession> sessions = null;
-    			if (pages.containsKey(page)) {
-    				sessions = pages.get(page);
-    			} else {
+    			sessions = pages.get(page);
+    			if (sessions == null) {
     				sessions = new ConcurrentHashSet<ServerSession>();			
     			}
     			sessions.add(remote);
