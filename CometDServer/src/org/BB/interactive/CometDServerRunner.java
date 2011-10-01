@@ -58,12 +58,14 @@ public class CometDServerRunner {
         boolean qos = false;
         boolean stats = false;
         boolean reqs = false;
+        boolean print_messages = false;
         String configuration_file = null;
         int port = 8080;
 
         for (String arg : args)
         {
             ssl |= "--ssl".equals(arg);
+            print_messages |= "--print_messages".equals(arg);
             qos |= "--qos".equals(arg);
             stats |= "--stats".equals(arg);
             reqs |= "--reqs".equals(arg);
@@ -167,7 +169,7 @@ public class CometDServerRunner {
         		/*new BlackListSecurityPolicy(blacklist, null/*pcs* /)*/}));
         //new StatisticsService(bayeux);
         //new SendEmailService(bayeux, blacklist);
-        new SimpleUserStatistics(bayeux);
+        new SimpleUserStatistics(bayeux, print_messages);
     }
     
     public BayeuxServer getBayeuxServer()

@@ -5,13 +5,11 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 import org.cometd.bayeux.Message;
 import org.cometd.bayeux.server.BayeuxServer;
 import org.cometd.bayeux.server.ServerSession;
 import org.cometd.server.AbstractService;
-import org.eclipse.jetty.util.ConcurrentHashSet;
 
 public class SimpleUserStatistics extends AbstractService {
 
@@ -20,18 +18,23 @@ public class SimpleUserStatistics extends AbstractService {
 	Map<String, Set<ServerSession>> pages;
 	Map<ServerSession, String> users;
 	final long TIME_SPAN = 3*60000;
+	boolean log_messages;
 	
-    public SimpleUserStatistics(BayeuxServer bayeux)
+    public SimpleUserStatistics(BayeuxServer bayeux, boolean log_messages)
 	{
         super(bayeux, "statistics-service");
         addService("/**", "all");
         time = System.currentTimeMillis();
         messages = new HashMap<String, Integer>();
-        pages = new ConcurrentHashMap<String, Set<ServerSession>>();
-        users = new ConcurrentHashMap<ServerSession, String>();
+        pages = new HashMap<String, Set<ServerSession>>();
+        users = new HashMap<ServerSession, String>();
+        this.log_messages = log_messages;
 	}
     
-    public void all(ServerSession remote, Message message) {
+    // TODO(kolman): Remove synchronized by writing data structure module.
+    // This module has to store all user actions for statistics.
+    // Different kinds of statistics can be derived later.
+    public synchronized void all(ServerSession remote, Message message) {
         if (message != null) {
         	
         	if (messages.containsKey(message.getChannel())) {
@@ -40,7 +43,9 @@ public class SimpleUserStatistics extends AbstractService {
         		messages.put(message.getChannel(), 1);
         	}
 
-   		    System.err.println(message.getJSON());
+        	if (log_messages) {
+        		System.err.println(message.getJSON());
+        	}
 
         	Object pageObj = message.get("page");
     		if (pageObj instanceof String) {
@@ -48,7 +53,7 @@ public class SimpleUserStatistics extends AbstractService {
     			Set<ServerSession> sessions = null;
     			sessions = pages.get(page);
     			if (sessions == null) {
-    				sessions = new ConcurrentHashSet<ServerSession>();			
+    				sessions = new HashSet<ServerSession>();			
     			}
     			sessions.add(remote);
     			pages.put(page, sessions);
