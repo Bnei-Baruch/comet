@@ -159,11 +159,19 @@ public class SimpleUserStatistics extends AbstractService {
             }
             for(ServerSession s : toRemove) {
             	String[] lang_page = users.get(s);
-            	Set<ServerSession> sessions = pages.get(lang_page[1]).get(lang_page[0]);
-        		sessions.remove(s);
-        		if (sessions.size() == 0) {
-        			pages.remove(users.get(s));
-        		}
+            	Map<String, Set<ServerSession>> page_data = pages.get(lang_page[1]);
+            	if (page_data != null) {
+	            	Set<ServerSession> sessions = page_data.get(lang_page[0]);
+	            	if (sessions != null) {
+		        		sessions.remove(s);
+		        		if (sessions.size() == 0) {
+		        			page_data.remove(lang_page[0]);
+		        			if (page_data.size() == 0) {
+		        				pages.remove(lang_page[1]);
+		        			}
+		        		}
+	            	}
+            	}
         		users.remove(s);
             }
 
