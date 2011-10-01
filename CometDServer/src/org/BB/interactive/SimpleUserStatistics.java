@@ -88,17 +88,18 @@ public class SimpleUserStatistics extends AbstractService {
     			// Check use exists and check page is different.
         		if (users.containsKey(remote)) {
         			String[] lang_page = users.get(remote);
-        			if (lang_page == null || lang_page.length < 2 ||
+        			if ((lang_page != null && lang_page.length >= 2) &&
         				lang_page[0].compareTo(language) != 0 ||
         				lang_page[1].compareTo(page) != 0) {
-		                Map<String, Set<ServerSession>> pages_page_data = pages.get(users.get(remote)[1]);
-		                Set<ServerSession> pages_sessions = pages_page_data.get(users.get(remote)[0]);
+        				
+		                Map<String, Set<ServerSession>> pages_page_data = pages.get(lang_page[1]);
+		                Set<ServerSession> pages_sessions = pages_page_data.get(lang_page[0]);
 		                if (pages_sessions != null) {
 		                	pages_sessions.remove(remote);
 			            	if (pages_sessions.size() == 0) {
-			            		pages_page_data.remove(language);
+			            		pages_page_data.remove(lang_page[0]);
 			            		if (pages_page_data.size() == 0) {
-			            			pages.remove(users.get(remote));
+			            			pages.remove(lang_page[1]);
 			            		}
 			            	}
 		                }
