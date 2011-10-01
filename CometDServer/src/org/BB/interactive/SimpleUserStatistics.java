@@ -62,7 +62,7 @@ public class SimpleUserStatistics extends AbstractService {
     			
     			// Canonic URL
     			page = page.startsWith("http://") ? page.substring(7) : page;
-    			page = page.startsWith("www") ? page.substring(3) : page;
+    			page = page.startsWith("www.") ? page.substring(4) : page;
     			page = page.startsWith("kabbalahgroup.info/internet/") ? page.substring(28) : page;
     			page = page.startsWith("localhost:3000/") ? page.substring(15) : page;
     			
