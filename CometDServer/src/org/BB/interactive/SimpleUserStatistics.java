@@ -92,7 +92,7 @@ public class SimpleUserStatistics extends AbstractService {
         				lang_page[0].compareTo(language) != 0 ||
         				lang_page[1].compareTo(page) != 0) {
 		                Map<String, Set<ServerSession>> pages_page_data = pages.get(users.get(remote)[1]);
-		                Set<ServerSession> pages_sessions = pages_page_data.get(language); 
+		                Set<ServerSession> pages_sessions = pages_page_data.get(users.get(remote)[0]); 
 		                pages_sessions.remove(remote);
 		            	if (pages_sessions.size() == 0) {
 		            		pages_page_data.remove(language);
