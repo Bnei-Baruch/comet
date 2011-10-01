@@ -141,7 +141,7 @@ public class SimpleUserStatistics extends AbstractService {
         		System.err.print("page:\"" + e.getKey() + "\" languages:");
         		
         		for(Entry<String, Set<ServerSession>> f : e.getValue().entrySet()) {
-        			System.err.print(f.getKey() + ":" + e.getValue().size() + " ");
+        			System.err.print(f.getKey() + ":" + f.getValue().size() + " ");
         			total_count += f.getValue().size();
         		}
         		
