@@ -94,6 +94,7 @@ public class SimpleUserStatistics extends AbstractService {
         				
 		                Map<String, Set<ServerSession>> pages_page_data = pages.get(lang_page[1]);
 		                Set<ServerSession> pages_sessions = pages_page_data.get(lang_page[0]);
+		                
 		                if (pages_sessions != null) {
 		                	pages_sessions.remove(remote);
 			            	if (pages_sessions.size() == 0) {
