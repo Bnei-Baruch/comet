@@ -61,6 +61,8 @@ public class CometDServerRunner {
         boolean print_messages = false;
         String configuration_file = null;
         int port = 8080;
+        int timeout = 3*60*1001; // default 180 seconds timeout.
+        int maxInterval = 10001; // default 10 seconds interval.
 
         for (String arg : args)
         {
@@ -71,6 +73,12 @@ public class CometDServerRunner {
             reqs |= "--reqs".equals(arg);
             if (arg.startsWith("--conf=")) {
             	configuration_file = arg.split("=")[1];
+            }
+            if (arg.startsWith("--timeout")) {
+            	timeout = Integer.parseInt(arg.split("=")[1]);
+            }
+            if (arg.startsWith("--maxInterval")) {
+            	maxInterval = Integer.parseInt(arg.split("=")[1]);
             }
             if (!arg.startsWith("--")) {
                 port = Integer.parseInt(arg);
@@ -148,10 +156,10 @@ public class CometDServerRunner {
         // This value must be several times larger than the client value
         // (e.g. 60 s on server vs 5 s on client) so that it's guaranteed that
         // it will be the client to dispose idle connections.
-        cometServletHolder.setInitParameter("maxInterval", String.valueOf(60001));
+        cometServletHolder.setInitParameter("maxInterval", String.valueOf(maxInterval));
         // Explicitly set the timeout value
-        cometServletHolder.setInitParameter("timeout", String.valueOf(3*60*1001));
-        cometServletHolder.setInitParameter("multiSessionInterval", "30001");
+        cometServletHolder.setInitParameter("timeout", String.valueOf(timeout));
+        //cometServletHolder.setInitParameter("multiSessionInterval", "30001");
         //cometServletHolder.setInitParameter("maxSessionsPerBrowser", "-1");
         cometServletHolder.setInitParameter("allowMultiSessionsNoBrowser", "true");
         
@@ -169,7 +177,9 @@ public class CometDServerRunner {
         		/*new BlackListSecurityPolicy(blacklist, null/*pcs* /)*/}));
         //new StatisticsService(bayeux);
         //new SendEmailService(bayeux, blacklist);
-        new SimpleUserStatistics(bayeux, print_messages);
+        SimpleUserStatistics sus = new SimpleUserStatistics(bayeux, print_messages);
+        sus.setTimeSpan(timeout);
+        
     }
     
     public BayeuxServer getBayeuxServer()

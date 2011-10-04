@@ -24,7 +24,7 @@ public class SimpleUserStatistics extends AbstractService {
 	
 	// user session => language, page
 	Map<ServerSession, String[]> users;
-	final long TIME_SPAN = 3*60000;
+	long TIME_SPAN = 3*60000;
 	boolean log_messages;
 	
     public SimpleUserStatistics(BayeuxServer bayeux, boolean log_messages)
@@ -37,6 +37,20 @@ public class SimpleUserStatistics extends AbstractService {
         users = new HashMap<ServerSession, String[]>();
         this.log_messages = log_messages;
 	}
+    
+    public void setTimeSpan(long time_span) {
+    	TIME_SPAN = time_span;
+    }
+    
+    public void printMessageInfo(Message message) {
+    	String channel = message.getChannel();
+    	Set<ServerSession> sessions = getBayeux().getChannel(channel).getSubscribers();
+    	System.err.print(channel + " clients subscribed:" + sessions.size() + " ids:");
+    	for(ServerSession ss : sessions) {
+    		System.err.print(ss.getId() + " ");
+    	}
+    	System.err.println();
+    }
     
     // TODO(kolman): Remove synchronized by writing data structure module.
     // This module has to store all user actions for statistics.
@@ -54,6 +68,7 @@ public class SimpleUserStatistics extends AbstractService {
 
         	if (log_messages) {
         		System.err.println(message.getJSON());
+        		printMessageInfo(message);
         	}
 
         	Object pageObj = message.get("page");
