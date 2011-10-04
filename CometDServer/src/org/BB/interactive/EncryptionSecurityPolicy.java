@@ -112,6 +112,9 @@ public class EncryptionSecurityPolicy implements SecurityPolicy
 		//System.err.println(verify);
 		
 		String verifyDecryptHex = decrypt(app.secretKey, app.ivParam, verify);
+		if (verifyDecryptHex == null)
+			return false;
+
 		String verifyDecrypt = null;
 		try {
 			verifyDecrypt = new String(hexToBytes(verifyDecryptHex), "UTF-8");
