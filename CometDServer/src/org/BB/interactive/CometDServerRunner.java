@@ -172,9 +172,9 @@ public class CometDServerRunner {
         bayeux = cometServlet.getBayeux();
         //PrivateChatService pcs = new PrivateChatService(bayeux);
         //BlackList blacklist = new BlackList();
-        bayeux.setSecurityPolicy(new MultipleSecurityPolicy(new SecurityPolicy[] {
-        		new EncryptionSecurityPolicy(ap), 
-        		/*new BlackListSecurityPolicy(blacklist, null/*pcs* /)*/}));
+        //bayeux.setSecurityPolicy(new MultipleSecurityPolicy(new SecurityPolicy[] {
+        //		new EncryptionSecurityPolicy(ap), 
+        //		/*new BlackListSecurityPolicy(blacklist, null/*pcs* /)*/}));
         //new StatisticsService(bayeux);
         //new SendEmailService(bayeux, blacklist);
         SimpleUserStatistics sus = new SimpleUserStatistics(bayeux, print_messages);
