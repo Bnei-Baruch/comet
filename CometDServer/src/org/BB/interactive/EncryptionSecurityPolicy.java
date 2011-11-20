@@ -32,33 +32,28 @@ public class EncryptionSecurityPolicy implements SecurityPolicy
 	public boolean canCreate(BayeuxServer server, ServerSession session,
 			String arg2, ServerMessage message)
 	{
-		return authenticateMessage2(message, session);
+		return authenticateMessage(message, session);
 	}
 
 	@Override
 	public boolean canHandshake(BayeuxServer arg0, ServerSession session,
 			ServerMessage message)
 	{
-		return authenticateMessage2(message, session);
+		return authenticateMessage(message, session);
 	}
 
 	@Override
 	public boolean canPublish(BayeuxServer arg0, ServerSession session,
 			ServerChannel arg2, ServerMessage message)
 	{
-		return authenticateMessage2(message, session);
+		return authenticateMessage(message, session);
 	}
 
 	@Override
 	public boolean canSubscribe(BayeuxServer arg0, ServerSession session,
 			ServerChannel arg2, ServerMessage message)
 	{
-		return authenticateMessage2(message, session);
-	}
-	
-	public boolean authenticateMessage2(Message message, ServerSession session)
-	{
-		return true;
+		return authenticateMessage(message, session);
 	}
 	
 	public boolean authenticateMessage(Message message, ServerSession session)
